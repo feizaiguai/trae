@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的简单项目</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .feature {
+            background: #e8f4fd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #007acc;
+        }
+        .button {
+            display: inline-block;
+            background: #007acc;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 5px;
+        }
+        .button:hover {
+            background: #005a99;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 欢迎来到我的项目</h1>
+        <p>这是一个简单而优雅的示例项目，展示了基本的网页设计和功能。</p>
+        
+        <div class="feature">
+            <h3>✨ 主要特性</h3>
+            <ul>
+                <li>响应式设计</li>
+                <li>现代化界面</li>
+                <li>易于使用</li>
+                <li>开源免费</li>
+            </ul>
+        </div>
+        
+        <div class="feature">
+            <h3>🛠️ 技术栈</h3>
+            <p>HTML5 + CSS3 + JavaScript</p>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="#" class="button">开始使用</a>
+            <a href="#" class="button">查看文档</a>
+        </div>
+        
+        <footer style="text-align: center; margin-top: 40px; color: #666;">
+            <p>&copy; 2024 我的项目. 保留所有权利.</p>
+        </footer>
+    </div>
+    
+    <script>
+        // 简单的交互功能
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('页面加载完成！');
+            
+            // 为按钮添加点击事件
+            const buttons = document.querySelectorAll('.button');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('功能正在开发中...');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
