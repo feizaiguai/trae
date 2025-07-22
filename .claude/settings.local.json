@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(python:*)",
+      "Bash(wc:*)",
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(dir:*)",
+      "Bash(rm:*)",
+      "Bash(sed:*)"
+    ],
+    "deny": []
+  }
+}

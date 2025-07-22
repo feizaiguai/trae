@@ -1,0 +1,967 @@
+任务：根据提供的微信群聊天记录（txt格式）生成一站式解惑与深度分析报告，输出为风格固定、一致的HTML页面，适合截图分享
+
+## 项目核心理念
+本系统专注于从微信群聊记录中识别、汇总并深度解答所有成员提出的疑惑和问题。通过实时网络搜索获取最新信息，为每个问题提供全方位、多角度、有深度的分析与解答，力求将复杂问题讲清讲透。
+
+## 自动提取信息
+系统将自动从您提供的聊天记录中提取以下信息：
+- 群名称：将从聊天记录的系统通知或常见群聊信息中提取
+- 日期：将使用聊天记录中最近的日期，或者默认使用今天的日期
+- 时间范围：根据记录中的首条和末条消息时间确定
+- 问题统计：自动统计识别出的问题总数和涉及成员数量
+
+## 聊天记录支持格式
+支持以下多种常见格式：
+- "[时间] 昵称：消息内容"
+- "时间 - 昵称：消息内容"
+- "昵称 时间：消息内容"
+- 其他合理的时间和昵称分隔格式
+
+如未能识别消息格式或未找到有效记录，将显示提示信息并尝试按最佳猜测处理。
+
+## 问题识别智能算法
+系统采用多层次问题识别机制：
+
+### 第一层：疑问词识别
+自动识别包含以下疑问词的发言：
+- 询问类："为什么"、"怎么"、"如何"、"怎样"、"怎么办"
+- 定义类："是什么"、"什么是"、"指的是"
+- 推荐类："有没有推荐"、"推荐一下"、"哪个好"、"选哪个"
+- 求助类："求助"、"帮忙"、"不懂"、"不会"、"不知道"
+- 比较类："哪个更好"、"区别是什么"、"对比"
+
+### 第二层：疑问句式识别
+识别以下句式模式：
+- 以"？"结尾的疑问句
+- "有人知道...吗？"句式
+- "请问..."句式
+- "想了解..."句式
+- "求教..."句式
+
+### 第三层：语境分析
+通过上下文分析识别隐含的求助意图：
+- 表达困惑的语句
+- 寻求建议的表述
+- 遇到问题的描述
+- 需要指导的情况
+
+## 【重要】内容真实性与搜索准确性检查流程
+**在开始网络搜索和分析前，必须执行以下验证流程：**
+
+### 第一步：问题提取准确性验证
+- 确认所有识别出的问题确实来自提供的聊天记录
+- 检查问题内容是否完整、准确，未被截断或误解
+- 验证提问者昵称与聊天记录中的用户名完全一致
+- 确保问题的时间戳和上下文信息准确
+
+### 第二步：搜索关键词优化
+- 为每个问题提炼出最有效的搜索关键词
+- 确保搜索词能够获取到最相关、最新的信息
+- 避免使用过于宽泛或过于狭窄的搜索词
+- 考虑使用中英文双语搜索以获取更全面的信息
+
+### 第三步：搜索结果质量评估
+- 验证搜索到的信息来源是否权威可靠
+- 检查信息的时效性，优先使用最新数据
+- 确保搜索结果与问题高度相关
+- 识别并排除过时、错误或有偏见的信息
+
+### 第四步：答案内容验证
+**以下情况属于需要避免的内容：**
+- 基于过时信息生成的答案
+- 缺乏权威来源支撑的观点
+- 过于主观或带有明显偏见的建议
+- 可能误导用户的不准确信息
+- 超出问题范围的无关内容
+- 过于复杂难懂的专业术语堆砌
+
+### 第五步：答案质量标准确认
+**只有满足以下标准才能生成最终答案：**
+- 答案基于最新、权威的搜索结果
+- 内容全面但重点突出，层次清晰
+- 语言通俗易懂，适合普通用户理解
+- 提供具体可行的建议和行动指南
+- 承认知识局限性，不强行给出不确定的答案
+
+**只有通过以上验证流程，确认搜索和分析质量后，才能开始编写HTML网页内容。**
+
+## 两大核心阶段详细说明
+
+### 第一阶段：问题识别与汇总
+
+#### 模块一：群友疑惑全景看板 (Dashboard of Group Member Questions)
+
+**识别范围：**
+- 扫描全部聊天记录，无遗漏地识别所有疑问
+- 包括直接提问、间接求助、表达困惑、寻求建议、请求解释、征求意见等多种形式
+- 识别跨消息的完整问题（可能分多条消息表达）
+- 过滤重复或相似问题，进行智能合并
+
+**输出格式：**
+生成结构化的疑惑清单，包含以下信息：
+- 问题编号（按时间顺序）
+- 提问者昵称
+- 完整问题内容
+- 提问时间
+- 问题分类标签
+- 紧急程度评估
+
+**示例输出：**
+```
+【疑惑清单总览】
+总计发现问题：12个
+涉及成员：8人
+问题类型分布：技术咨询(4)、生活建议(3)、学习指导(2)、购物决策(2)、其他(1)
+
+【详细问题列表】
+
+[问题001] 提问者：张小明 | 时间：14:23 | 分类：技术学习
+问题："最近AI发展太快了，感觉很焦虑，普通人应该怎么学习才能不被淘汰？有没有系统的学习路径推荐？"
+紧急程度：中等（需要在1-3天内获得答案）
+关键词：AI学习、职业发展、学习路径
+
+[问题002] 提问者：李阿姨 | 时间：15:45 | 分类：保险理财
+问题："家里有老人，想买一份重疾险，但市面上产品太多了，到底应该怎么选？有没有坑需要避免？"
+紧急程度：高
+关键词：重疾险、老人保险、产品选择
+
+[问题003] 提问者：王旅行家 | 时间：16:12 | 分类：出行旅游
+问题："马上要去欧洲旅行，请问现在办申根签证的流程复杂吗？需要提前多久准备？有什么注意事项？"
+紧急程度：高
+关键词：申根签证、欧洲旅行、签证流程
+
+[问题004] 提问者：职场新人 | 时间：17:30 | 分类：职场管理
+问题："公司最近在推行OKR，但感觉和KPI没什么区别，这个工具的核心到底是什么？怎么用才有效？"
+紧急程度：中等
+关键词：OKR、KPI、绩效管理
+```
+
+### 第二阶段：逐一搜索与深度解答
+
+#### 模块二：实时搜索与精炼解答生成 (Real-time Search & Refined Answer Generation)
+
+**搜索策略：**
+针对每个问题，执行多维度搜索：
+1. **基础信息搜索**：获取问题的基本概念和定义
+2. **最新动态搜索**：查找最新的政策、技术、市场变化
+3. **专家观点搜索**：收集权威专家和机构的观点
+4. **用户体验搜索**：查找真实用户的经验分享和评价
+5. **对比分析搜索**：获取不同选择的优缺点对比
+
+**解答生成原则：**
+- **结构化呈现**：使用标题、列表、要点、分段、编号、图表等形式组织内容
+- **分层递进**：从基础概念到深入分析，层层递进
+- **实用导向**：提供具体可行的建议和行动步骤
+- **多角度覆盖**：考虑不同情况和需求的解决方案
+- **风险提示**：明确指出可能的风险和注意事项
+
+#### 模块三：分享卡片式网页代码生成 (Sharing Card Webpage Code Generation)
+
+**设计理念：**
+- **卡片化布局**：每个问答对独立成卡片，便于截图分享
+- **视觉层次**：通过颜色、字体、间距营造清晰的信息层次
+- **移动友好**：确保在各种设备上都有良好的显示效果
+- **截图优化**：专门为截图分享优化的视觉效果
+
+## 输出要求
+必须使用以下固定的HTML模板和CSS样式，仅更新内容部分，确保每次生成的页面风格完全一致。使用严格定义的深色科技风格。
+
+## HTML结构模板
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>群聊解惑分析 - 一站式问答</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* 严格定义的CSS样式，确保风格一致性 */
+        :root {
+            --bg-primary: #0f0e17;
+            --bg-secondary: #1a1925;
+            --bg-tertiary: #252336;
+            --text-primary: #fffffe;
+            --text-secondary: #e0e0e0;
+            --accent-primary: #4caf50;
+            --accent-secondary: #66bb6a;
+            --accent-tertiary: #81c784;
+            --accent-blue: #00c853;
+            --accent-purple: #00e676;
+            --accent-cyan: #69f0ae;
+            --accent-warning: #ff9800;
+            --accent-danger: #f44336;
+            --accent-info: #2196f3;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 16px;
+            width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5,5 L8,5 L8,8 L5,8 Z M20,5 L23,5 L23,8 L20,8 Z M35,5 L38,5 L38,8 L35,8 Z M5,20 L8,20 L8,23 L5,23 Z M20,20 L23,20 L23,23 L20,23 Z M35,20 L38,20 L38,23 L35,23 Z M5,35 L8,35 L8,38 L5,38 Z M20,35 L23,35 L23,38 L20,38 Z M35,35 L38,35 L38,38 L35,38 Z' fill='%234caf50' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background-color: var(--bg-secondary);
+            margin-bottom: 30px;
+            border-radius: 12px;
+        }
+        
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .meta-info span {
+            background-color: var(--bg-tertiary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .meta-info i {
+            color: var(--accent-cyan);
+        }
+        
+        /* 问题概览部分 */
+        .questions-overview {
+            background-color: var(--bg-secondary);
+            margin-bottom: 30px;
+            padding: 25px;
+            border-radius: 12px;
+        }
+        
+        .overview-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-blue);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .questions-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .stat-card {
+            background-color: var(--bg-tertiary);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid var(--accent-primary);
+        }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .questions-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        
+        .question-item {
+            background-color: var(--bg-tertiary);
+            padding: 18px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-cyan);
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .question-meta {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .question-id {
+            background-color: var(--accent-primary);
+            color: var(--text-primary);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .question-author {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+        
+        .question-time {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        .question-category {
+            background-color: var(--accent-blue);
+            color: var(--text-primary);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        .question-priority {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .priority-high {
+            background-color: var(--accent-danger);
+            color: var(--text-primary);
+        }
+        
+        .priority-medium {
+            background-color: var(--accent-warning);
+            color: var(--text-primary);
+        }
+        
+        .priority-low {
+            background-color: var(--accent-info);
+            color: var(--text-primary);
+        }
+        
+        .question-content {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+        
+        .question-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .keyword {
+            background-color: rgba(0, 230, 118, 0.2);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: var(--text-primary);
+        }
+        
+        /* 问答卡片部分 */
+        .qa-section {
+            margin-top: 40px;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 30px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .qa-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        .qa-card {
+            background-color: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(76, 175, 80, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .qa-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 200, 83, 0.2);
+        }
+        
+        .question-section {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--bg-tertiary);
+        }
+        
+        .question-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .question-text {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-tertiary);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-cyan);
+            margin-bottom: 15px;
+        }
+        
+        .question-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .question-info span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .question-info i {
+            color: var(--accent-primary);
+        }
+        
+        .answer-section {
+            margin-top: 25px;
+        }
+        
+        .answer-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--accent-primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .answer-content {
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+        
+        .answer-content h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--accent-secondary);
+            margin: 20px 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .answer-content h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent-tertiary);
+            margin: 15px 0 10px 0;
+        }
+        
+        .answer-content p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .answer-content ul, .answer-content ol {
+            margin: 15px 0 15px 25px;
+        }
+        
+        .answer-content li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        
+        .answer-content strong {
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+        
+        .highlight-box {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid var(--accent-primary);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .warning-box {
+            background-color: rgba(255, 152, 0, 0.1);
+            border-left: 4px solid var(--accent-warning);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .info-box {
+            background-color: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid var(--accent-info);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .action-steps {
+            background-color: var(--bg-tertiary);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+        
+        .action-steps h4 {
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+        
+        .step-number {
+            background-color: var(--accent-primary);
+            color: var(--text-primary);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+            line-height: 1.6;
+        }
+        
+        .search-sources {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--bg-tertiary);
+        }
+        
+        .sources-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent-secondary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .sources-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .source-tag {
+            background-color: rgba(0, 200, 83, 0.2);
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .source-tag i {
+            color: var(--accent-cyan);
+        }
+        
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background-color: var(--bg-secondary);
+            border-radius: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .footer-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--accent-primary);
+            margin-bottom: 10px;
+        }
+        
+        .footer-subtitle {
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .footer-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        
+        .footer-stat i {
+            color: var(--accent-cyan);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            body {
+                width: 100%;
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .qa-card {
+                padding: 20px;
+            }
+            
+            .question-text {
+                font-size: 16px;
+            }
+            
+            .meta-info {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .questions-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+        
+        /* 打印样式 */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .qa-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-brain"></i> 群聊解惑分析</h1>
+        <div class="subtitle">一站式问答 · 深度解析 · 智能搜索</div>
+        <div class="meta-info">
+            <span><i class="fas fa-users"></i> 群名称：[群名称]</span>
+            <span><i class="fas fa-calendar"></i> 分析日期：[日期]</span>
+            <span><i class="fas fa-clock"></i> 时间范围：[时间范围]</span>
+            <span><i class="fas fa-search"></i> 实时搜索：已启用</span>
+        </div>
+    </header>
+
+    <section class="questions-overview">
+        <h2 class="overview-title"><i class="fas fa-list-alt"></i> 疑惑清单总览</h2>
+        
+        <div class="questions-stats">
+            <div class="stat-card">
+                <div class="stat-number">[问题总数]</div>
+                <div class="stat-label">识别问题总数</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">[成员数量]</div>
+                <div class="stat-label">提问成员数量</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">[分类数量]</div>
+                <div class="stat-label">问题分类数量</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">[搜索次数]</div>
+                <div class="stat-label">执行搜索次数</div>
+            </div>
+        </div>
+        
+        <div class="questions-list">
+            <!-- 这里将循环生成每个问题的概览卡片 -->
+            <div class="question-item">
+                <div class="question-header">
+                    <div class="question-meta">
+                        <span class="question-id">Q001</span>
+                        <span class="question-author"><i class="fas fa-user"></i> [提问者昵称]</span>
+                        <span class="question-time"><i class="fas fa-clock"></i> [提问时间]</span>
+                    </div>
+                    <div class="question-meta">
+                        <span class="question-category">[问题分类]</span>
+                        <span class="question-priority priority-[优先级]">[紧急程度]</span>
+                    </div>
+                </div>
+                <div class="question-content">[完整问题内容]</div>
+                <div class="question-keywords">
+                    <span class="keyword">[关键词1]</span>
+                    <span class="keyword">[关键词2]</span>
+                    <span class="keyword">[关键词3]</span>
+                </div>
+            </div>
+            <!-- 更多问题项... -->
+        </div>
+    </section>
+
+    <section class="qa-section">
+        <h2 class="section-title"><i class="fas fa-lightbulb"></i> 深度解答分析</h2>
+        
+        <div class="qa-container">
+            <!-- 这里将循环生成每个问答对的详细卡片 -->
+            <div class="qa-card">
+                <div class="question-section">
+                    <h3 class="question-title"><i class="fas fa-question-circle"></i> 问题 [编号]</h3>
+                    <div class="question-text">[完整问题内容]</div>
+                    <div class="question-info">
+                        <span><i class="fas fa-user"></i> 提问者：[昵称]</span>
+                        <span><i class="fas fa-clock"></i> 时间：[时间]</span>
+                        <span><i class="fas fa-tag"></i> 分类：[分类]</span>
+                        <span><i class="fas fa-exclamation-triangle"></i> 优先级：[优先级]</span>
+                    </div>
+                </div>
+                
+                <div class="answer-section">
+                    <h3 class="answer-title"><i class="fas fa-reply"></i> 深度解答</h3>
+                    <div class="answer-content">
+                        <!-- 这里是具体的答案内容，包含多个层次的分析 -->
+                        
+                        <h3><i class="fas fa-compass"></i> 核心概念解析</h3>
+                        <p>[基础概念和定义的详细解释]</p>
+                        
+                        <div class="highlight-box">
+                            <strong>关键要点：</strong>[重要信息提炼]
+                        </div>
+                        
+                        <h3><i class="fas fa-route"></i> 多角度分析</h3>
+                        <h4>1. [分析角度一]</h4>
+                        <ul>
+                            <li>[要点1]</li>
+                            <li>[要点2]</li>
+                            <li>[要点3]</li>
+                        </ul>
+                        
+                        <h4>2. [分析角度二]</h4>
+                        <ul>
+                            <li>[要点1]</li>
+                            <li>[要点2]</li>
+                            <li>[要点3]</li>
+                        </ul>
+                        
+                        <div class="warning-box">
+                            <strong><i class="fas fa-exclamation-triangle"></i> 注意事项：</strong>[风险提示和注意事项]
+                        </div>
+                        
+                        <h3><i class="fas fa-tools"></i> 实用建议</h3>
+                        <p>[具体可行的建议和指导]</p>
+                        
+                        <div class="action-steps">
+                            <h4><i class="fas fa-list-ol"></i> 行动步骤</h4>
+                            <div class="step-item">
+                                <span class="step-number">1</span>
+                                <div class="step-content">[第一步具体操作]</div>
+                            </div>
+                            <div class="step-item">
+                                <span class="step-number">2</span>
+                                <div class="step-content">[第二步具体操作]</div>
+                            </div>
+                            <div class="step-item">
+                                <span class="step-number">3</span>
+                                <div class="step-content">[第三步具体操作]</div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <strong><i class="fas fa-info-circle"></i> 补充信息：</strong>[额外的有用信息]
+                        </div>
+                    </div>
+                    
+                    <div class="search-sources">
+                        <h4 class="sources-title"><i class="fas fa-search"></i> 搜索来源</h4>
+                        <div class="sources-list">
+                            <span class="source-tag"><i class="fas fa-globe"></i> 权威网站</span>
+                            <span class="source-tag"><i class="fas fa-newspaper"></i> 最新资讯</span>
+                            <span class="source-tag"><i class="fas fa-user-graduate"></i> 专家观点</span>
+                            <span class="source-tag"><i class="fas fa-users"></i> 用户评价</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 更多问答卡片... -->
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-title">群聊解惑分析系统</div>
+        <div class="footer-subtitle">基于实时搜索的智能问答解决方案</div>
+        <div class="footer-stats">
+            <span class="footer-stat"><i class="fas fa-brain"></i> AI驱动分析</span>
+            <span class="footer-stat"><i class="fas fa-search"></i> 实时信息搜索</span>
+            <span class="footer-stat"><i class="fas fa-shield-alt"></i> 内容真实性验证</span>
+            <span class="footer-stat"><i class="fas fa-mobile-alt"></i> 移动端优化</span>
+        </div>
+    </footer>
+</body>
+</html>
+```
+
+## 具体实施流程
+
+### 步骤一：聊天记录解析
+1. 读取并解析提供的聊天记录文件
+2. 识别消息格式，提取时间、用户名、消息内容
+3. 建立完整的聊天时间线和用户映射
+
+### 步骤二：问题智能识别
+1. 应用多层次问题识别算法
+2. 提取疑问词、分析句式结构、理解语境
+3. 过滤和合并相似问题
+4. 为每个问题分配优先级和分类标签
+
+### 步骤三：搜索关键词优化
+1. 为每个问题提炼最有效的搜索关键词
+2. 考虑中英文双语搜索策略
+3. 设计多维度搜索方案（基础信息、最新动态、专家观点、实践案例、技术文档、用户评价、行业报告、政策法规、学术研究、市场分析）
+
+### 步骤四：实时网络搜索
+1. 执行多轮搜索，获取全面信息
+2. 评估搜索结果的权威性和时效性
+3. 筛选和整理最相关的信息
+
+### 步骤五：深度答案生成
+1. 基于搜索结果生成结构化答案
+2. 确保内容的准确性、全面性和实用性
+3. 采用分层递进的表达方式
+4. 提供具体可行的建议和行动步骤
+
+### 步骤六：HTML页面生成
+1. 使用固定的CSS样式模板
+2. 生成问题概览部分
+3. 为每个问答对创建独立的卡片
+4. 确保页面适合截图分享
+5. 添加搜索来源和质量标识
+
+## 质量保证机制
+
+### 内容准确性保证
+- 多源信息交叉验证
+- 权威来源优先原则
+- 时效性检查机制
+- 专业术语准确性验证
+
+### 用户体验优化
+- 移动端适配
+- 截图友好设计
+- 信息层次清晰
+- 视觉效果统一
+
+### 搜索质量控制
+- 关键词优化算法
+- 搜索结果质量评估
+- 信息来源多样性保证
+- 最新信息优先机制
+
+## 输出文件说明
+
+生成的HTML文件具有以下特点：
+1. **自包含**：无需外部资源，可直接在浏览器中打开
+2. **响应式**：适配各种设备屏幕尺寸
+3. **截图优化**：专门为截图分享设计的视觉效果
+4. **信息完整**：包含问题识别、搜索过程、深度解答的完整流程
+5. **视觉统一**：严格遵循设计规范，确保风格一致性
+
+## 使用建议
+
+1. **输入准备**：确保聊天记录格式清晰，包含完整的时间和用户信息
+2. **问题质量**：系统能识别各种形式的问题，但明确的疑问表达效果更好
+3. **结果应用**：生成的HTML页面可直接截图分享，也可打印保存
+4. **持续优化**：根据使用反馈不断优化问题识别算法和答案质量
+
+通过这套系统，群聊中的每一个疑惑都能得到及时、准确、深入的解答，真正实现"一站式解惑"的目标。

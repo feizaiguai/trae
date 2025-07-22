@@ -1,0 +1,474 @@
+任务：根据提供的微信群聊天记录（txt格式）生成商业机会雷达报告，输出为风格固定、一致的HTML页面，专注于识别潜在产品、服务、未满足的需求、市场趋势或投资信号
+
+## 自动提取信息
+系统将自动从您提供的聊天记录中提取以下商业相关信息：
+- 群名称：将从聊天记录的系统通知或常见群聊信息中提取
+- 分析日期：将使用聊天记录中最近的日期，或者默认使用今天的日期
+- 时间范围：根据记录中的首条和末条消息时间确定
+- 参与成员数量：统计活跃发言的成员总数
+
+## 商业机会识别模式
+- 分析模式：[深度商业洞察版]
+- 识别重点：产品需求、服务缺口、市场趋势、投资信号
+- 价值评估：基于需求强度、市场规模、实现难度进行综合评分
+
+## 六大核心分析维度
+
+### 1️⃣ 高频商业需求洞察
+- **识别目标**：聊天中频繁出现的"购买意向""寻找某类服务/人脉"的真实表述
+- **分析方法**：
+  - 统计"想要""需要""寻找""求推荐"需求关键词出现频次
+  - 识别同一需求在不同成员间的重复表达
+  - 记录需求表达的时间密集度（如"近三日内多次提及"）
+- **输出要求**：
+  - 用自然语言描述典型需求（如："多位成员在近三日表达了对视频剪辑外包的需求"）
+  - 使用无序列表列出代表性话题和关键词
+  - 标注需求强度级别（高频/中频/低频）
+
+### 2️⃣ 推荐与转介绍行为摘要
+- **识别目标**：群内"主动推荐/转介资源"行为模式
+- **分析方法**：
+  - 识别"推荐""介绍""认识""联系"转介关键词
+  - 统计推荐类型：招聘信息、人脉资源、服务提供商、产品推荐
+  - 分析推荐者和被推荐者的角色特征
+- **输出要求**：
+  - 点出哪类推荐最频繁（如招聘信息、人脉、服务）
+  - 概述哪些成员倾向于提供推荐，哪些成员频繁被推荐
+  - 评估推荐行为的转化潜力
+
+### 3️⃣ 潜在商业撮合机会
+- **识别目标**：有商业互补可能的成员组合
+- **分析方法**：
+  - 匹配"需求表达"与"能力展示"的时间相关性
+  - 识别"问题-解决方案"型对话模式
+  - 分析双方互动的商业意向强度
+- **输出要求**：
+  - 用段落描述"可匹配"的商业行为对话
+  - 示例："用户A提及需要品牌设计，用户B当日分享了相关案例"
+  - 评估匹配度和撮合价值
+
+### 4️⃣ 群体行业热点与趋势关键词
+- **识别目标**：讨论密集的行业方向/项目类型
+- **分析方法**：
+  - 提取高频行业术语（如"AI训练数据""短剧运营"）
+  - 识别技术趋势讨论（"新技术""未来发展"相关内容）
+  - 统计行业话题的参与度和讨论深度
+- **输出要求**：
+  - 不使用词云，以文字概述高频行业线索
+  - 总结"近期行业关注热点汇总"段落
+  - 分析趋势讨论的商业机会潜力
+
+### 5️⃣ 高商业活跃度成员画像
+- **识别目标**：在商业话题中活跃的关键成员
+- **分析方法**：
+  - 统计成员在商业相关话题的发言频次
+  - 识别"发起需求""推荐资源""发布服务"行为
+  - 评估成员的商业敏感度和影响力
+- **输出要求**：
+  - 列出几位商业活跃成员
+  - 每位成员使用 <div class="profile"> 描述行为特征
+  - 示例："张三多次发布人力外包需求，并参与转介绍"
+
+### 6️⃣ 商业交流模式总结
+- **识别目标**：群内商业互动的整体模式
+- **分析方法**：
+  - 总结商业对话的典型流程
+  - 识别"需求无人响应""推荐未持续跟进"断裂点
+  - 分析群体商业决策的特点
+- **输出要求**：
+  - 总结商业互动模式（如："问题导向型需求 → 快速推荐 → 无公开反馈"）
+  - 分析商业转化的障碍点
+  - 提出建议性引导策略（如"设置'推荐跟踪话题日'以促进转化"）
+
+## 聊天记录支持格式
+支持以下多种常见格式：
+- "[时间] 昵称：消息内容"
+- "时间 - 昵称：消息内容"
+- "昵称 时间：消息内容"
+- 其他合理的时间和昵称分隔格式
+
+如未能识别消息格式或未找到有效记录，将显示提示信息并尝试按最佳猜测处理。
+
+## 商业语义分析支持
+系统将重点识别以下商业相关语义：
+- 需求表达："想要"、"需要"、"希望有"、"如果能"
+- 抱怨信号："太麻烦"、"不好用"、"没有"、"缺少"
+- 购买意向："买"、"购买"、"入手"、"值得"、"推荐"
+- 趋势讨论："未来"、"趋势"、"发展"、"新技术"
+- 问题描述："困扰"、"难题"、"痛点"、"问题"
+
+## 【重要】内容真实性检查流程
+**在分析完成准备开始编写网页内容前，必须执行以下验证流程：**
+
+### 第一步：商业机会数据来源核实
+- 确认所有商业机会、需求表达、抱怨信号、购买意向均来自提供的聊天记录
+- 检查是否存在虚构的商业需求、编造的市场趋势或不存在的用户痛点
+- 验证群名称、分析日期、时间范围、参与成员数量基础信息的准确性
+
+### 第二步：商业分析结论验证
+- 检查所有商业机会识别是否有充分的聊天记录证据支撑
+- 确认产品期待、解决方案、市场趋势分析是否基于真实的用户表达
+- 验证价值评估、投资信号、商业潜力判断的客观性和依据性
+
+### 第三步：商业语义分析一致性检查
+- 确保识别的需求表达（"想要"、"需要"）确实存在于聊天记录中
+- 检查抱怨信号（"太麻烦"、"不好用"）是否为真实用户反馈
+- 验证购买意向（"买"、"购买"）和趋势讨论是否有实际对话支撑
+
+### 第四步：商业机会幻觉内容识别
+**以下情况属于幻觉内容，必须避免：**
+- 编造不存在的商业需求或市场机会
+- 虚构商业价值评分、市场规模数据、投资潜力数字信息
+- 添加聊天记录中未出现的产品概念或服务需求
+- 夸大或歪曲实际的商业讨论程度
+- 创造不存在的用户痛点或购买意向
+- 商业分析结论与聊天记录内容相矛盾
+- 使用聊天记录中不存在的商业术语或行业概念
+- 强行解读普通对话为商业机会信号
+
+### 第五步：修正流程
+**如果发现任何幻觉或与聊天记录不符的内容，必须立即停止分析，并：**
+1. **立即停止**：暂停商业机会雷达网页内容生成
+2. **明确指出**：详细说明发现的问题类型（商业需求虚构/市场机会编造/分析无据）
+3. **原因分析**：说明产生问题的可能原因（过度解读/强行关联/缺乏依据）
+4. **修改建议**：提供具体的修正方案，要求重新基于真实聊天记录进行商业分析
+5. **重新验证**：修正后必须重新执行完整的验证流程
+
+### 第六步：商业分析质量标准确认
+**只有满足以下标准才能开始编写HTML内容：**
+- 所有商业机会都有明确的聊天记录依据
+- 商业价值评估基于客观的用户表达和市场信号
+- 承认分析局限性，不强行挖掘不存在的商业价值
+- 保持客观理性，避免过度商业化解读日常对话
+- 确保识别的商业机会具有真实性和可验证性
+
+**只有通过以上验证流程，确认所有商业机会分析内容完全真实可靠后，才能开始编写HTML网页内容。**
+
+## 输出要求
+必须使用以下固定的HTML模板和CSS样式，仅更新内容部分，确保每次生成的页面风格完全一致。使用严格定义的商业科技风格。
+
+## HTML结构模板
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>[群名称]商业机会洞察报告 - [日期]</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', Roboto, sans-serif;
+            background-color: #0f0f0f;
+            color: #ffffff;
+            line-height: 1.6;
+            font-size: 16px;
+            width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            margin-bottom: 30px;
+            border-radius: 8px;
+            border: 1px solid #00ff88;
+        }
+        
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #00ff88;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: #cccccc;
+            margin-bottom: 15px;
+        }
+        
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 14px;
+            color: #999999;
+        }
+        
+        section {
+            background: #1a1a1a;
+            margin-bottom: 25px;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid #00ff88;
+        }
+        
+        h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #00ff88;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333333;
+        }
+        
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 15px 0 10px 0;
+        }
+        
+        p {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 6px;
+        }
+        
+        strong {
+            color: #00ff88;
+            font-weight: 600;
+        }
+        
+        .profile {
+            background: #2a2a2a;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border-left: 3px solid #00ff88;
+            min-height: 120px;
+        }
+        
+        .business-item {
+            background: #2a2a2a;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            border-left: 3px solid #666666;
+        }
+        
+        .highlight {
+            background: rgba(0, 255, 136, 0.1);
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #00ff88;
+        }
+        
+        .member-name {
+            color: #00ff88;
+            font-weight: 600;
+            background: rgba(0, 255, 136, 0.1);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        
+        .category-tag {
+            display: inline-block;
+            background: #333333;
+            color: #ffffff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 5px;
+        }
+        
+        .priority-high {
+            background: #ff4444;
+        }
+        
+        .priority-medium {
+            background: #ffaa00;
+        }
+        
+        .priority-low {
+            background: #00aa00;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>[群名称] 商业机会洞察报告</h1>
+        <div class="subtitle">基于聊天记录的商业机会智能分析</div>
+        <div class="meta-info">
+            <span>分析日期：[日期]</span>
+            <span>时间范围：[开始时间] - [结束时间]</span>
+            <span>参与成员：[X]人</span>
+            <span>分析消息：[X]条</span>
+        </div>
+    </header>
+
+    <!-- 注意：以下所有模块内容必须基于真实聊天记录分析，如某模块无相关内容则完全省略该模块 -->
+    
+    <!-- 1. 高频商业需求洞察 -->
+    <section>
+        <h2>高频商业需求洞察</h2>
+        <!-- 此处根据聊天记录分析结果填入真实内容，如无相关内容则省略此模块 -->
+        <div class="business-item">
+            <h3>需求类别：<strong>[具体需求类别]</strong></h3>
+            <p><strong>需求描述：</strong>[从聊天记录中提取的具体需求表达]</p>
+            <p><strong>提及成员：</strong><span class="member-name">[成员昵称]</span>、<span class="member-name">[成员昵称]</span></p>
+            <p><strong>需求强度：</strong><span class="category-tag priority-high">高频提及</span></p>
+            <p><strong>商业价值：</strong>[基于需求分析的商业价值评估]</p>
+        </div>
+    </section>
+
+    <!-- 2. 推荐与转介绍行为摘要 -->
+    <section>
+        <h2>推荐与转介绍行为摘要</h2>
+        <!-- 此处根据聊天记录分析结果填入真实内容，如无相关内容则省略此模块 -->
+        <div class="business-item">
+            <h3>推荐行为：<strong>[具体推荐内容]</strong></h3>
+            <p><strong>推荐内容：</strong>[从聊天记录中提取的推荐表达]</p>
+            <p><strong>推荐人：</strong><span class="member-name">[推荐人昵称]</span></p>
+            <p><strong>目标受众：</strong>[被推荐的对象或群体]</p>
+            <p><strong>转化潜力：</strong><span class="category-tag priority-medium">中等</span></p>
+        </div>
+    </section>
+
+    <!-- 3. 潜在商业撮合机会 -->
+    <section>
+        <h2>潜在商业撮合机会</h2>
+        <!-- 此处根据聊天记录分析结果填入真实内容，如无相关内容则省略此模块 -->
+        <div class="business-item">
+            <h3>撮合机会：<strong>[具体撮合场景]</strong></h3>
+            <p><strong>需求方：</strong><span class="member-name">[需求方昵称]</span> - [需求描述]</p>
+            <p><strong>供给方：</strong><span class="member-name">[供给方昵称]</span> - [能力描述]</p>
+            <p><strong>匹配度：</strong><span class="category-tag priority-high">高度匹配</span></p>
+            <p><strong>撮合价值：</strong>[预估的商业价值]</p>
+        </div>
+    </section>
+
+    <!-- 4. 群体行业热点与趋势关键词 -->
+    <section>
+        <h2>群体行业热点与趋势关键词</h2>
+        <!-- 此处根据聊天记录分析结果填入真实内容，如无相关内容则省略此模块 -->
+        <div class="business-item">
+            <h3>近期行业关注热点汇总</h3>
+            <p><strong>高频行业线索：</strong>[从聊天记录中提取的行业方向/项目类型，如"AI训练数据""短剧运营"]</p>
+            <p><strong>技术趋势讨论：</strong>[群体中关于"新技术""未来发展"的讨论要点]</p>
+            <p><strong>参与成员：</strong><span class="member-name">[成员昵称]</span>、<span class="member-name">[成员昵称]</span></p>
+            <p><strong>讨论密集度：</strong><span class="category-tag priority-high">高频讨论</span></p>
+            <p><strong>商业机会潜力：</strong>[基于行业热点识别的商业机会]</p>
+        </div>
+    </section>
+
+    <!-- 5. 高商业活跃成员画像 -->
+    <section>
+        <h2>高商业活跃成员画像</h2>
+        <!-- 此处根据聊天记录分析结果填入真实内容，如无相关内容则省略此模块 -->
+        <div class="profile">
+            <h3><span class="member-name">[成员昵称]</span></h3>
+            <p><strong>商业活跃度：</strong><span class="category-tag priority-high">高</span></p>
+            <p><strong>关注领域：</strong><span class="highlight">[领域1]</span>、<span class="highlight">[领域2]</span></p>
+            <p><strong>商业行为：</strong>[从聊天记录中识别的商业相关行为]</p>
+            <p><strong>影响力评估：</strong>[基于发言频次和响应情况的影响力分析]</p>
+        </div>
+    </section>
+
+    <!-- 6. 商业交流模式总结 -->
+    <section>
+        <h2>商业交流模式总结</h2>
+        <!-- 此处根据聊天记录分析结果填入真实内容，如无相关内容则省略此模块 -->
+        <div class="business-item">
+            <h3>商业互动模式</h3>
+            <p><strong>典型流程：</strong>[如："问题导向型需求 → 快速推荐 → 无公开反馈"]</p>
+            <p><strong>需求表达模式：</strong>[从聊天记录中总结的需求表达特点]</p>
+            <p><strong>决策讨论模式：</strong>[群体决策讨论的特点]</p>
+            <p><strong>信息分享模式：</strong>[商业信息分享的特点]</p>
+        </div>
+        
+        <div class="business-item">
+            <h3>商业转化障碍分析</h3>
+            <p><strong>断裂点识别：</strong>[如"需求无人响应""推荐未持续跟进"问题]</p>
+            <p><strong>转化效率：</strong><span class="category-tag priority-medium">待优化</span></p>
+        </div>
+        
+        <div class="business-item">
+            <h3>引导策略建议</h3>
+            <ul>
+                <li><strong>短期优化：</strong>[针对当前问题的具体建议]</li>
+                <li><strong>机制建议：</strong>[如"设置'推荐跟踪话题日'以促进转化"]</li>
+                <li><strong>长期发展：</strong>[基于群体特征的长期商业发展建议]</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 分析总结与建议 -->
+    <section>
+        <h2>分析总结与建议</h2>
+        <div class="business-item">
+            <h3>核心发现</h3>
+            <p><strong>主要商业机会：</strong>[基于以上分析总结的核心商业机会]</p>
+            <p><strong>群体商业特征：</strong>[群体在商业活动中表现出的主要特征]</p>
+            <p><strong>价值评估：</strong><span class="category-tag priority-high">高价值群体</span></p>
+        </div>
+        
+        <div class="business-item">
+            <h3>行动建议</h3>
+            <ul>
+                <li><strong>即时机会：</strong>[可以立即把握的商业机会]</li>
+                <li><strong>中期规划：</strong>[需要培育和发展的商业机会]</li>
+                <li><strong>长期布局：</strong>[具有长期价值的商业方向]</li>
+            </ul>
+        </div>
+        
+        <div class="business-item">
+            <h3>风险提示</h3>
+            <p><strong>注意事项：</strong>[在商业合作中需要注意的风险点]</p>
+            <p><strong>建议策略：</strong>[降低风险的具体建议]</p>
+        </div>
+    </section>
+
+    <!-- 页脚信息 -->
+    <footer style="text-align: center; padding: 20px 0; margin-top: 30px; border-top: 1px solid #333333; color: #666666; font-size: 14px;">
+        <p>本报告基于微信群聊天记录智能分析生成 | 数据来源真实可靠 | 分析结果仅供参考</p>
+        <p style="margin-top: 5px;">生成时间：[生成时间] | 版本：商业机会雷达 v2.0</p>
+    </footer>
+
+</body>
+</html>
+```
+
+## 重要说明
+
+1. **内容真实性要求**：所有输出内容必须基于真实的聊天记录分析，严禁使用示例、占位符或虚构内容。
+
+2. **模块省略机制**：如果某个模块在聊天记录中没有相关信息，必须完全省略该模块，不输出空标题。
+
+3. **样式特点**：
+   - 深色背景设计，适合截图分享和PNG转换
+   - 固定1200px宽度，信息密集排版，适合完整截图
+   - 无交互元素，纯静态文本展示，所有内容直接可见
+   - 关键信息用绿色高亮显示，确保在图片格式中清晰可读
+   - 移除高度限制，确保所有模块内容完整显示
+   - 添加页脚总结，使页面结构完整
+
+4. **使用场景**：企业合作评估、社群运营策略、项目线索追踪等商业决策支持。
+
+
+
+
+
+
+
+
+</body>
+</html>

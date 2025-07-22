@@ -1,0 +1,643 @@
+任务：基于微信群聊天记录（txt格式）深度挖掘、可视化并增强群体内部的集体专业知识、技能分布与知识共享动态，输出为专业的HTML知识图谱页面
+
+## 核心目标
+通过智能分析微信聊天记录，构建群体知识与技能的全景图谱，识别知识流动模式，发现认知盲点，并提供系统性的知识提升路径。
+
+## 自动信息提取
+系统将自动从聊天记录中提取以下核心信息：
+- 群体名称：从聊天记录或群设置信息中提取
+- 分析时间段：基于聊天记录的时间范围确定
+- 成员专业背景：通过发言内容推断成员的专业领域和技能水平
+- 知识交流频次：统计知识分享、问答、讨论的频率和深度
+
+## 分析模式配置
+- 分析深度：[深度挖掘模式] - 全面解析知识结构与技能分布
+- 可视化风格：专业知识图谱风格，突出知识节点和关联关系
+- 输出格式：结构化HTML报告，支持交互式知识导航
+
+## 聊天记录格式支持
+兼容多种常见的聊天记录格式：
+- "[时间] 昵称：消息内容"
+- "时间 - 昵称：消息内容"
+- "昵称 时间：消息内容"
+- 其他标准时间戳格式
+
+系统具备智能格式识别能力，如遇到非标准格式将自动适配处理。
+
+## 知识内容处理原则
+- 保持所有专业术语和技术表达的原始准确性
+- 不对任何专业领域的表述进行简化或转换
+- 尊重不同学科和行业的专业表达习惯
+- 维护知识内容的完整性和专业性
+
+## 内容验证与质量控制
+**重要提醒：在分析完成准备开始编写网页内容前，必须执行以下验证流程**
+
+### 内容真实性验证
+1. **数据源核实**：
+   - 确认所有分析结论都基于提供的聊天记录内容
+   - 验证提取的群体名称、时间段、成员信息等基础数据的准确性
+   - 检查是否存在超出聊天记录范围的推测性内容
+
+2. **专业领域验证**：
+   - 核实识别的知识领域是否确实在聊天记录中有相关讨论
+   - 验证专家识别是否基于实际的发言内容和专业表现
+   - 确认技能分布分析是否有聊天记录中的具体证据支撑
+
+3. **分析深度合理性检查**：
+   - 检查分析结论是否与聊天记录的实际内容深度相匹配
+   - 避免过度解读或添加聊天记录中不存在的信息
+   - 确保所有评级和评估都有明确的依据
+
+### 幻觉内容识别与处理
+如发现以下情况，必须立即停止并修正：
+
+1. **虚构信息**：
+   - 编造不存在的群成员或专家
+   - 添加聊天记录中未出现的知识领域
+   - 创造虚假的讨论内容或案例
+
+2. **过度推理**：
+   - 基于有限信息做出过于具体的专业判断
+   - 超出聊天记录范围的技能水平评估
+   - 无根据的发展趋势预测
+
+3. **内容不一致**：
+   - 分析结论与聊天记录内容相矛盾
+   - 统计数据与实际记录不符
+   - 时间线或事件顺序错误
+
+### 修正流程
+发现问题时的处理步骤：
+1. **立即停止**：暂停网页内容生成
+2. **问题定位**：明确指出具体的幻觉或不符内容
+3. **原因分析**：说明产生问题的可能原因
+4. **修正建议**：提供基于实际聊天记录的准确替代方案
+5. **重新验证**：确保修正后的内容完全符合聊天记录
+
+### 质量标准
+最终输出必须满足：
+- 100%基于提供的聊天记录内容
+- 所有分析结论都有明确的文本依据
+- 保持专业性的同时避免过度解读
+- 承认分析局限性，不强行填补信息空白
+
+**只有通过以上验证流程，确认内容完全真实可靠后，才能开始编写HTML网页内容。**
+
+## 输出要求
+采用以下专业的HTML模板和CSS样式，确保知识分析报告的可视化效果专业、清晰、易于截图展示。使用深色科技风格设计，全文字排版，无交互元素。
+
+## HTML结构模板
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>[群体名称]知识与技能中心 - [分析时间段]</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* 严格定义的CSS样式，确保风格一致性 */
+        :root {
+            --bg-primary: #0f0e17;
+            --bg-secondary: #1a1925;
+            --bg-tertiary: #252336;
+            --text-primary: #fffffe;
+            --text-secondary: #e0e0e0;
+            --accent-primary: #4caf50;
+            --accent-secondary: #66bb6a;
+            --accent-tertiary: #81c784;
+            --accent-blue: #00c853;
+            --accent-purple: #00e676;
+            --accent-cyan: #69f0ae;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 16px;
+            width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5,5 L8,5 L8,8 L5,8 Z M20,5 L23,5 L23,8 L20,8 Z M35,5 L38,5 L38,8 L35,8 Z M5,20 L8,20 L8,23 L5,23 Z M20,20 L23,20 L23,23 L20,23 Z M35,20 L38,20 L38,23 L35,23 Z M5,35 L8,35 L8,38 L5,38 Z M20,35 L23,35 L23,38 L20,38 Z M35,35 L38,35 L38,38 L35,38 Z' fill='%234caf50' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background-color: var(--bg-secondary);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 10px;
+        }
+        
+        .date {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .meta-info span {
+            background-color: var(--bg-tertiary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        section {
+            background-color: var(--bg-secondary);
+            margin-bottom: 30px;
+            padding: 25px;
+        }
+        
+        h2 {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-blue);
+        }
+        
+        h3 {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--accent-primary);
+            margin: 15px 0 10px 0;
+        }
+        
+        h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--accent-secondary);
+            margin: 12px 0 8px 0;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 5px;
+        }
+        
+        a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        /* 卡片容器样式 */
+        .knowledge-container, .expert-container, .skill-container, 
+        .gap-container, .path-container, .network-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        /* 卡片样式 */
+        .knowledge-card, .expert-card, .skill-card, 
+        .gap-card, .path-card, .network-card {
+            background-color: var(--bg-tertiary); /* 使用深色背景 #252336 */
+            padding: 20px;
+        }
+        
+        /* 知识领域卡片 */
+        .knowledge-category {
+            display: inline-block;
+            background-color: var(--accent-blue);
+            color: var(--text-primary);
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .knowledge-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+        
+        .keyword {
+            background-color: rgba(0, 230, 118, 0.3);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        .knowledge-depth {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+        
+        /* 专家卡片 */
+        .expert-type {
+            display: inline-block;
+            background-color: var(--accent-secondary);
+            color: var(--text-primary);
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .expert-meta {
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .expert-speciality {
+            margin-top: 10px;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+        
+        /* 技能分布卡片 */
+        .skill-meta {
+            margin-bottom: 10px;
+        }
+        
+        .skill-meta span {
+            margin-right: 15px;
+            font-size: 14px;
+        }
+        
+        .skill-level {
+            background-color: var(--accent-tertiary);
+            color: var(--text-primary);
+            padding: 3px 10px;
+            border-radius: 15px;
+        }
+        
+        .proficiency {
+            padding: 3px 10px;
+            border-radius: 15px;
+        }
+        
+        .proficiency-expert {
+            background-color: var(--accent-secondary);
+        }
+        
+        .proficiency-advanced {
+            background-color: var(--accent-primary);
+        }
+        
+        .proficiency-intermediate {
+            background-color: var(--accent-blue);
+        }
+        
+        /* 知识缺口卡片 */
+        .gap-type {
+            display: inline-block;
+            background-color: var(--accent-purple);
+            color: var(--text-primary);
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .gap-content {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .gap-highlight {
+            font-style: italic;
+            color: var(--accent-primary);
+            margin: 10px 0;
+            font-weight: 600;
+        }
+        
+        /* 学习路径卡片 */
+        .path-step {
+            margin-bottom: 15px;
+        }
+        
+        .step-meta, .resource-meta {
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .path-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .tag {
+            background-color: rgba(0, 230, 118, 0.3);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        .resource {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            margin-top: 10px;
+        }
+        
+        .recommended-badge {
+            background-color: var(--accent-primary);
+            color: var(--text-primary);
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+        }
+        
+        /* 网络分析文字样式 */
+        .network-analysis {
+            background-color: var(--bg-tertiary);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .network-insight {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent-primary);
+        }
+        
+        .insight-title {
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin-bottom: 10px;
+        }
+        
+        .insight-content {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            body {
+                width: 95%;
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+            
+            .meta-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 页面头部 -->
+    <header>
+        <h1><i class="fas fa-brain"></i> [群体名称] 知识与技能中心</h1>
+        <p class="date">[分析时间段]</p>
+        <div class="meta-info">
+            <span><i class="fas fa-users"></i> 成员数量：[成员总数]</span>
+            <span><i class="fas fa-comments"></i> 消息总数：[消息总数]</span>
+            <span><i class="fas fa-lightbulb"></i> 知识点数：[知识点总数]</span>
+        </div>
+    </header>
+
+    <!-- 1️⃣ 群体知识领域总览 -->
+    <section>
+        <h2><i class="fas fa-map"></i> 群体知识领域总览</h2>
+        <div class="knowledge-container">
+            <!-- 每个知识领域都要进行深入多角度分析，不限制数量 -->
+            <div class="knowledge-card">
+                <div class="knowledge-category">[领域分类]</div>
+                <h3>[知识领域名称]</h3>
+                <div class="knowledge-keywords">
+                    <span class="keyword">[关键词1]</span>
+                    <span class="keyword">[关键词2]</span>
+                    <span class="keyword">[关键词3]</span>
+                    <!-- 提取微信群中高频出现的知识领域关键词 -->
+                </div>
+                <p><strong>活跃程度分析：</strong>[分析该领域在群体中的活跃程度，包括讨论频率、参与人数、消息数量等具体指标。明确该领域是否为高频讨论话题，还是偶尔提及的边缘领域。]</p>
+                <p><strong>讨论深度评估：</strong>[评估该领域讨论的深度，包括是否有深入的技术探讨、实践分享、问题解决等。区分表面化讨论和深度专业交流。]</p>
+                <p><strong>典型话题梳理：</strong>[梳理该领域的典型讨论话题，包括热门问题、常见困惑、技术趋势、实践案例等。展示群体在该领域的关注重点。]</p>
+                <p><strong>响应度分析：</strong>[分析该领域话题的响应情况，明确哪些话题能引起广泛讨论，哪些话题虽然被提及但少人响应。识别群体兴趣点和冷门区域。]</p>
+                <p><strong>知识传播特征：</strong>[分析该领域知识的传播特征，包括知识来源、传播路径、接受程度等。]</p>
+                <div class="knowledge-depth">讨论热度：[热度评级] | 参与广度：[参与度评级] | 响应活跃度：[响应度评级]</div>
+            </div>
+            <!-- 重复以上结构，为每个识别出的知识领域创建详细分析卡片，不限制数量 -->
+        </div>
+    </section>
+
+    <!-- 2️⃣ 成员技能画像与贡献摘要 -->
+    <section>
+        <h2><i class="fas fa-user-graduate"></i> 成员技能画像与贡献摘要</h2>
+        <div class="expert-container">
+            <!-- 为知识贡献频繁的成员输出简明专业画像，按知识活跃度组织展示，不排序、不编号 -->
+            <div class="expert-card">
+                <div class="expert-type">[贡献类型]</div>
+                <h3>[成员昵称]</h3>
+                <div class="expert-meta">
+                    <span><i class="fas fa-star"></i> 主要领域：[主要知识领域]</span>
+                    <span><i class="fas fa-chart-line"></i> 活跃度：[知识活跃度]</span>
+                    <span><i class="fas fa-comments"></i> 互动类型：[主要互动行为]</span>
+                </div>
+                <p><strong>知识领域分布：</strong>[详细描述该成员发言主要涉及的知识领域，包括核心专业领域、辅助技能领域、跨界涉猎领域等。分析其知识结构的广度和深度。]</p>
+                <p><strong>知识互动行为：</strong>[分析该成员在群中的知识互动行为模式，包括：答疑解惑（回答他人问题）、知识讲解（主动分享专业知识）、资源分享（提供学习资料、工具推荐）、经验传授（分享实践经验）、问题提出（提出有价值的问题）等具体行为类型及其频率。]</p>
+                <p><strong>贡献价值特征：</strong>[评估该成员的知识贡献特征，包括贡献的专业性、实用性、创新性、影响力等。分析其在群体知识建设中的独特价值。]</p>
+                <p><strong>互动风格分析：</strong>[分析该成员的知识分享和互动风格，如：耐心细致型、简洁高效型、启发引导型、资源整合型等。]</p>
+                <div class="expert-speciality">核心贡献：[该成员在群体中的核心知识贡献和影响]</div>
+            </div>
+            <!-- 重复以上结构，为每个知识贡献活跃的成员创建画像，按活跃度组织但不排序编号 -->
+        </div>
+    </section>
+
+    <!-- 3️⃣ 知识互动与共享模式 -->
+    <section>
+        <h2><i class="fas fa-network-wired"></i> 知识互动与共享模式</h2>
+        <div class="network-analysis">
+            <div class="network-insight">
+                <div class="insight-title">知识传递模式分析</div>
+                <div class="insight-content">
+                    <p><strong>知识输出集中度：</strong>[分析群内知识是否集中于少数人输出，还是呈现广泛互动的分布式模式。统计主要知识贡献者的比例，评估知识来源的集中程度。]</p>
+                    <p><strong>互动参与广度：</strong>[分析知识互动的参与广度，包括主动分享者比例、积极响应者比例、被动接受者比例等。评估群体知识参与的整体活跃度。]</p>
+                    <p><strong>知识流动方向：</strong>[分析知识流动的主要方向，是单向传播还是双向交流，是否存在知识回流和反馈机制。]</p>
+                </div>
+            </div>
+            
+            <div class="network-insight">
+                <div class="insight-title">常见互动模式识别</div>
+                <div class="insight-content">
+                    <p><strong>技术答疑型：</strong>[分析技术答疑型互动的特征，包括问题类型、回答质量、解决效率等。识别在这种模式中的关键参与者和互动规律。]</p>
+                    <p><strong>专题讲座型：</strong>[分析专题讲座型知识分享的特征，包括主题选择、分享深度、受众反馈等。评估这种模式的知识传播效果。]</p>
+                    <p><strong>自发协作型：</strong>[分析自发协作型学习的特征，包括协作触发机制、参与模式、成果产出等。识别促进协作的关键因素。]</p>
+                    <p><strong>资源共享型：</strong>[分析资源共享型互动的特征，包括资源类型、分享频率、使用反馈等。]</p>
+                    <p><strong>经验交流型：</strong>[分析经验交流型互动的特征，包括经验类型、分享深度、实用价值等。]</p>
+                </div>
+            </div>
+            
+            <div class="network-insight">
+                <div class="insight-title">知识中心节点分析</div>
+                <div class="insight-content">
+                    <p><strong>知识中心存在性：</strong>[分析是否存在知识"中心"现象，即多数问题是否集中向某些特定成员提问。识别这些知识中心人物及其影响范围。]</p>
+                    <p><strong>中心化程度评估：</strong>[评估知识网络的中心化程度，分析过度中心化可能带来的风险和机会。]</p>
+                    <p><strong>知识权威建立：</strong>[分析群体中知识权威是如何建立的，包括专业能力展示、持续贡献、同行认可等因素。]</p>
+                    <p><strong>去中心化趋势：</strong>[分析是否存在知识去中心化的趋势，以及如何促进更均衡的知识分布。]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4️⃣ 群体认知盲点与成长机会 -->
+    <section>
+        <h2><i class="fas fa-exclamation-triangle"></i> 群体认知盲点与成长机会</h2>
+        <div class="gap-container">
+            <!-- 识别群内存在但互动稀少的知识板块 -->
+            <div class="gap-card">
+                <div class="gap-type">[盲点类型]</div>
+                <h3>[认知盲点领域]</h3>
+                <div class="gap-content">
+                    <p><strong>互动稀少板块识别：</strong>[识别群内存在但互动稀少的知识板块，包括有成员提问但无人回应的领域、偶尔提及但缺乏深入讨论的话题、存在需求但缺乏专业支持的方向等。]</p>
+                    <p><strong>问题响应缺失分析：</strong>[分析经常出现问题但缺乏高质量解答的主题，包括问题类型、提问频率、回应质量、解决率等指标。识别群体知识服务的薄弱环节。]</p>
+                    <p><strong>知识需求与供给失衡：</strong>[分析知识需求与供给的失衡情况，识别需求旺盛但供给不足的领域，以及供给充足但需求不明确的领域。]</p>
+                    <p><strong>认知误区识别：</strong>[识别群体中可能存在的认知误区和知识盲点，包括过时观念、片面理解、错误认知等。]</p>
+                </div>
+                <div class="gap-highlight">成长机会：[基于该盲点提出的具体成长机会和改进方向]</div>
+            </div>
+            <!-- 重复以上结构，为每个识别出的认知盲点创建分析卡片 -->
+        </div>
+        
+        <!-- 建议性发展方向 -->
+        <div class="path-container">
+            <div class="path-card">
+                <h3>群体学习发展建议</h3>
+                <div class="path-step">
+                    <p><strong>组织学习建议：</strong>[基于识别的认知盲点，提出可组织的学习活动建议，包括主题学习会、技能培训、经验分享会等具体形式和实施方案。]</p>
+                    <p><strong>讨论话题建议：</strong>[提出可以促进群体讨论的话题建议，包括热点技术、行业趋势、实践案例等，以激发更多有价值的知识交流。]</p>
+                    <p><strong>外部支持建议：</strong>[提出邀请外部专家或资源支持的建议性方向，包括需要引入的专业领域、合适的专家类型、合作方式等。]</p>
+                    <p><strong>知识结构优化：</strong>[提出群体知识结构优化的建议，包括知识体系完善、技能互补、资源整合等方面。]</p>
+                    <div class="path-tags">
+                        <span class="tag">学习组织</span>
+                        <span class="tag">专题讨论</span>
+                        <span class="tag">外部协作</span>
+                        <span class="tag">知识完善</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5️⃣ 多领域成员与桥梁型角色 -->
+    <section>
+        <h2><i class="fas fa-link"></i> 多领域成员与桥梁型角色</h2>
+        <div class="expert-container">
+            <!-- 识别在多个知识主题间发言的"跨界者" -->
+            <div class="expert-card">
+                <div class="expert-type">跨界连接者</div>
+                <h3>[跨界成员昵称]</h3>
+                <div class="expert-meta">
+                    <span><i class="fas fa-puzzle-piece"></i> 涉及领域：[涉及的多个领域]</span>
+                    <span><i class="fas fa-link"></i> 连接强度：[连接作用强度]</span>
+                    <span><i class="fas fa-exchange-alt"></i> 桥梁价值：[桥梁作用评级]</span>
+                </div>
+                <p><strong>多领域参与分析：</strong>[详细分析该成员在多个知识主题间的发言情况，包括参与的具体领域、在各领域的活跃程度、专业深度等。识别其跨领域知识的广度和深度。]</p>
+                <p><strong>连接作用描述：</strong>[描述该成员在群体内的连接作用，如"既能讲产品设计也能聊技术实现"、"在商业和技术之间架起桥梁"、"连接理论研究与实践应用"等具体的连接价值。]</p>
+                <p><strong>知识枢纽功能：</strong>[分析该成员作为"知识枢纽"的功能，包括知识整合能力、跨领域思维、信息中转作用等。评估其在群体知识网络中的关键节点价值。]</p>
+                <p><strong>中介节点价值：</strong>[分析该成员作为"中介节点"的价值，包括促进不同专业背景成员的交流、推动跨领域合作、催化创新思维等作用。]</p>
+                <p><strong>跨界影响力：</strong>[评估该成员的跨界影响力，包括在不同领域的认可度、观点的传播范围、对群体知识融合的促进作用等。]</p>
+                <div class="expert-speciality">桥梁特征：[该成员独特的跨界连接特征和价值]</div>
+            </div>
+            <!-- 重复以上结构，为每个识别出的跨界连接者创建分析卡片 -->
+        </div>
+    </section>
+
+    <!-- 6️⃣ 知识流动总结 -->
+    <section>
+        <h2><i class="fas fa-chart-line"></i> 知识流动总结</h2>
+        <div class="network-analysis">
+            <div class="network-insight">
+                <div class="insight-title">知识流动性分析</div>
+                <div class="insight-content">
+                    <p><strong>流动模式特征：</strong>[用文字总结知识在本群的总体流动状态，如"知识集中在少数几人手中，互动以点状传递为主"或"多个主题并发、各自形成独立讨论圈层"。分析知识流动的主要特征和模式。]</p>
+                    <p><strong>传播效率评估：</strong>[评估知识传播的效率，包括传播速度、覆盖范围、接受程度等。分析影响传播效率的关键因素。]</p>
+                    <p><strong>流动障碍识别：</strong>[识别阻碍知识流动的因素，如信息孤岛、专业壁垒、参与门槛等。]</p>
+                </div>
+            </div>
+            
+            <div class="network-insight">
+                <div class="insight-title">知识深度分析</div>
+                <div class="insight-content">
+                    <p><strong>讨论深度层次：</strong>[分析群体知识讨论的深度层次，区分表面交流、专业探讨、深度研究等不同层次。评估群体在各个层次的表现。]</p>
+                    <p><strong>专业化程度：</strong>[评估群体知识的专业化程度，包括专业术语使用、技术细节讨论、实践经验分享等方面。]</p>
+                    <p><strong>知识创新能力：</strong>[分析群体的知识创新能力，包括原创观点、创新方案、跨界融合等表现。]</p>
+                </div>
+            </div>
+            
+            <div class="network-insight">
+                <div class="insight-title">知识结构性评估</div>
+                <div class="insight-content">
+                    <p><strong>知识体系完整性：</strong>[评估群体知识体系的完整性，识别知识结构中的强项和薄弱环节。分析知识分布的均衡性。]</p>
+                    <p><strong>领域关联度：</strong>[分析不同知识领域之间的关联度，识别跨领域知识融合的程度和潜力。]</p>
+                    <p><strong>知识层次结构：</strong>[分析群体知识的层次结构，包括基础知识、应用知识、前沿知识等不同层次的分布情况。]</p>
+                </div>
+            </div>
+            
+            <div class="network-insight">
+                <div class="insight-title">群体知识生态总结</div>
+                <div class="insight-content">
+                    <p><strong>整体知识状态：</strong>[用简洁的文字总结群体知识的整体状态，如"知识集中度高，专业深度足，但跨领域交流有限"或"知识分布均衡，互动活跃，创新氛围浓厚"等。]</p>
+                    <p><strong>发展趋势判断：</strong>[基于当前状态，判断群体知识发展的趋势，包括可能的发展方向和潜在挑战。]</p>
+                    <p><strong>优化发展建议：</strong>[基于分析结果，提出群体知识生态优化的核心建议，包括结构调整、流动改善、深度提升等方面。]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页面尾部 -->
+    <footer style="text-align: center; padding: 20px; color: var(--text-secondary); border-top: 1px solid var(--bg-tertiary); margin-top: 40px;">
+        <p>本报告基于群体聊天记录智能分析生成 | 生成时间：[生成时间]</p>
+        <p>数据统计周期：[统计周期] | 分析算法版本：Knowledge Graph v2.0</p>
+    </footer>
+</body>
+</html>

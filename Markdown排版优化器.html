@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown排版优化器</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Markdown排版优化器</h1>
+    <textarea id="input" placeholder="在这里粘贴您的Markdown内容..."></textarea>
+    <button onclick="processMarkdown()">优化排版</button>
+    <div id="output"></div>
+
+    <script>
+        const emojiMap = {
+            'happy': '😊',
+            'sad': '😢',
+            'love': '❤️',
+            'cool': '😎',
+            'wink': '😉',
+            'cat': '🐱',
+            'dog': '🐶',
+            'pizza': '🍕',
+            'sun': '☀️',
+            'rain': '🌧️',
+            'laugh': '😂',
+            'angry': '😠',
+            'surprise': '😲',
+            'sleep': '😴',
+            'star': '⭐',
+            'heart': '💖',
+            'fire': '🔥',
+            'thumbsup': '👍',
+            'thumbsdown': '👎',
+            'rocket': '🚀',
+            'money': '💰',
+            'clock': '⏰'
+        };
+
+        function processMarkdown() {
+            let input = document.getElementById('input').value;
+            
+            // 保留原始分行断句
+            input = input.replace(/\n/g, '<br>');
+            
+            // 添加表情符号
+            Object.keys(emojiMap).forEach(key => {
+                const regex = new RegExp(`\\b${key}\\b`, 'gi');
+                input = input.replace(regex, emojiMap[key]);
+            });
+            
+            // 转换Markdown为HTML
+            const html = marked.parse(input);
+            
+            document.getElementById('output').innerHTML = html;
+        }
+    </script>
+</body>
+</html>
