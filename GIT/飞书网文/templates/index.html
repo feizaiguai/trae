@@ -4,76 +4,57 @@
 
 {% block extra_css %}
 <style>
-    /* 新闻模块样式 */
-    .news-module {
-        background: white;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        border: 1px solid #e1e5e9;
-        transition: all 0.3s ease;
+    /* 精选金句样式 */
+    .featured-quotes {
+        background: linear-gradient(135deg, rgba(0, 212, 170, 0.1) 0%, rgba(22, 33, 62, 0.8) 100%);
+        padding: 30px;
+        border-radius: 20px;
+        margin-bottom: 40px;
+        border: 1px solid var(--border-color);
+        text-align: center;
     }
-    
-    .news-module:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+    .quotes-title {
+        font-size: 1.8em;
+        color: var(--accent-color);
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
     }
-    
-    .news-header {
-        margin-bottom: 1rem;
+
+    .quote-item {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 20px;
+        border-radius: 15px;
+        margin: 15px 0;
+        border-left: 4px solid var(--accent-color);
+        font-size: 1.2em;
+        font-weight: bold;
+        font-style: italic;
+        position: relative;
+        overflow: hidden;
     }
-    
-    .news-title {
-        font-size: 1.3rem;
-        font-weight: 600;
-        color: #2c3e50;
-        line-height: 1.4;
-        margin: 0;
+
+    .quote-item::before {
+        content: '"';
+        font-size: 3em;
+        color: var(--accent-color);
+        position: absolute;
+        top: -10px;
+        left: 15px;
+        opacity: 0.3;
     }
-    
-    .news-summary, .news-interpretation {
-        margin-bottom: 1rem;
-    }
-    
-    .summary-label, .interpretation-label {
-        font-weight: 600;
-        color: #3498db;
-        margin-bottom: 0.5rem;
-        font-size: 0.9rem;
-    }
-    
-    .interpretation-label {
-        color: #e74c3c;
-    }
-    
-    .news-summary p, .news-interpretation p {
-        color: #555;
-        line-height: 1.6;
-        margin: 0;
-    }
-    
-    .news-footer {
-        text-align: right;
-        margin-top: 1rem;
-        padding-top: 1rem;
-        border-top: 1px solid #eee;
-    }
-    
-    .read-detail-btn {
-        background: linear-gradient(135deg, #3498db, #2980b9);
-        color: white;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 0.9rem;
-        transition: all 0.3s ease;
-    }
-    
-    .read-detail-btn:hover {
-        background: linear-gradient(135deg, #2980b9, #1f5f8b);
-        transform: translateY(-1px);
+
+    .quote-item::after {
+        content: '"';
+        font-size: 3em;
+        color: var(--accent-color);
+        position: absolute;
+        bottom: -20px;
+        right: 15px;
+        opacity: 0.3;
     }
 
     /* 文章列表样式 */
@@ -81,10 +62,129 @@
         margin-top: 2rem;
     }
     
+    .section-title {
+        font-size: 2em;
+        color: var(--text-primary);
+        margin-bottom: 30px;
+        text-align: center;
+        position: relative;
+    }
+    
+    .section-title::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 3px;
+        background: var(--accent-color);
+        margin: 15px auto;
+        border-radius: 2px;
+    }
+    
     .articles-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+        margin-top: 30px;
+    }
+
+    .article-card {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .article-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+    }
+
+    .article-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .article-title {
+        font-size: 1.4em;
+        font-weight: bold;
+        color: var(--text-primary);
+        margin-bottom: 15px;
+        line-height: 1.4;
+    }
+
+    .article-title a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .article-title a:hover {
+        color: var(--accent-color);
+    }
+
+    .article-meta {
         display: flex;
-        flex-direction: column;
-        gap: 0;
+        gap: 15px;
+        margin-bottom: 15px;
+        font-size: 0.9em;
+        color: var(--text-secondary);
+    }
+
+    .article-content {
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    .article-review {
+        background: rgba(var(--accent-color-rgb), 0.1);
+        padding: 15px;
+        border-radius: 10px;
+        border-left: 4px solid var(--accent-color);
+        margin-bottom: 20px;
+    }
+
+    .review-label {
+        font-weight: bold;
+        color: var(--accent-color);
+        margin-bottom: 8px;
+        font-size: 0.9em;
+    }
+
+    .article-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .read-more {
+        background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+        color: white;
+        padding: 10px 20px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+    }
+
+    .read-more:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(var(--accent-color-rgb), 0.4);
+        color: white;
     }
 
     /* 空状态样式 */
@@ -140,37 +240,56 @@
 {% endblock %}
 
 {% block content %}
-
+<!-- 精选金句区域 -->
+{% if articles and articles[0].quote %}
+<section class="featured-quotes">
+    <h2 class="quotes-title">
+        <i class="fas fa-quote-left"></i>
+        精选内容
+        <i class="fas fa-quote-right"></i>
+    </h2>
+    <div class="quote-item">
+        {{ articles[0].quote }}
+    </div>
+</section>
+{% endif %}
 
 <!-- 文章列表区域 -->
 <section class="articles-section">
+    <h2 class="section-title">最新文章</h2>
     
     {% if articles %}
     <div class="articles-grid">
         {% for article in articles %}
-        <div class="news-module">
-            <div class="news-header">
-                <h3 class="news-title">{{ article.title or '无标题' }}</h3>
+        <article class="article-card fade-in">
+            <h3 class="article-title">
+                <a href="/article/{{ article.id }}">{{ article.title or '无标题' }}</a>
+            </h3>
+            
+            <div class="article-meta">
+                <span><i class="fas fa-calendar"></i> {{ article.created_time or '未知时间' }}</span>
+                {% if article.author %}
+                <span><i class="fas fa-user"></i> {{ article.author }}</span>
+                {% endif %}
             </div>
             
             {% if article.content %}
-            <div class="news-summary">
-                <div class="summary-label">📝 总结</div>
-                <p>{{ article.content }}</p>
+            <div class="article-content">
+                {{ article.content[:150] }}{% if article.content|length > 150 %}...{% endif %}
             </div>
             {% endif %}
             
             {% if article.review %}
-            <div class="news-interpretation">
-                <div class="interpretation-label">💡 小白解读</div>
-                <p>{{ article.review }}</p>
+            <div class="article-review">
+                <div class="review-label">💡 小白解读</div>
+                <p>{{ article.review[:100] }}{% if article.review|length > 100 %}...{% endif %}</p>
             </div>
             {% endif %}
             
-            <div class="news-footer">
-                <button class="read-detail-btn" onclick="window.location.href='/article/{{ article.id }}'" target="_blank">查看详情</button>
+            <div class="article-actions">
+                <a href="/article/{{ article.id }}" class="read-more">阅读全文</a>
             </div>
-        </div>
+        </article>
         {% endfor %}
     </div>
     {% else %}
@@ -178,7 +297,7 @@
         <i class="fas fa-inbox"></i>
         <h3>暂无文章</h3>
         <p>暂无数据，请检查飞书多维表格配置或稍后刷新页面</p>
-        <p><small>确保飞书表格包含：全文内容提取、小白解读、总结、链接等字段</small></p>
+        <p><small>确保飞书表格包含：全文内容提取、小白解读、链接等字段</small></p>
         <br>
         <a href="/api/refresh" class="btn" onclick="refreshCache(event)">
             <i class="fas fa-sync-alt"></i>
