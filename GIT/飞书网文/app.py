@@ -118,25 +118,33 @@ def get_blog_data():
         elif isinstance(link_field, str):
             title = link_field
         
+        # 清理标题数据
+        title = title.strip() if title else ''
+        
         # 如果没有标题，使用总结的前50个字符作为标题
         if not title:
-            summary = fields.get('总结', '')
-            title = summary[:50] + '...' if len(summary) > 50 else summary
+            summary = fields.get('总结', '').strip()
+            if summary:
+                title = summary[:50] + ('...' if len(summary) > 50 else '')
+            else:
+                title = "无标题"
         
-        # 使用实际的字段名
-        content = fields.get('全文内容提取', '') or fields.get('总结', '')
+        # 获取其他字段并清理数据
+        quote = fields.get('全文内容提取', '').strip()
+        review = fields.get('小白解读', '').strip()
+        content = fields.get('总结', '').strip()
         
-        article = {
-            'id': record.get('record_id'),
-            'title': title,
-            'quote': fields.get('小白解读', ''),  # 使用小白解读作为金句
-            'review': fields.get('总结', ''),     # 使用总结作为点评
-            'content': content,
-            'preview': content[:app.config['PREVIEW_LENGTH']] + '...' if len(content) > app.config['PREVIEW_LENGTH'] else content
-        }
-        
-        # 只添加有内容的文章
-        if article['title'] and (article['content'] or article['quote'] or article['review']):
+        # 数据验证：过滤掉无效或测试数据
+        if _is_valid_content(quote, review, content, title):
+            article = {
+                'id': record.get('record_id'),
+                'title': title,
+                'quote': quote,  # 使用全文内容提取作为核心内容
+                'review': review,  # 使用小白解读作为解读内容
+                'content': content,  # 使用总结作为内容总结
+                'full_content': quote,  # 完整内容就是全文内容提取
+                'preview': _generate_preview(quote, content)
+            }
             articles.append(article)
     
     # 更新缓存
@@ -144,6 +152,33 @@ def get_blog_data():
     cache['timestamp'] = time.time()
     
     return articles
+
+def _is_valid_content(quote, review, content, title):
+    """验证内容是否有效"""
+    # 过滤掉明显的测试数据或无效数据
+    invalid_phrases = [
+        '请你提供具体的正文内容',
+        '请上传AI相关新闻',
+        '我明白了',
+        '好的，我明白了'
+    ]
+    
+    # 检查是否包含无效短语
+    all_text = f"{title} {quote} {review} {content}".lower()
+    for phrase in invalid_phrases:
+        if phrase.lower() in all_text:
+            return False
+    
+    # 至少要有一个字段有实质内容（长度大于10）
+    return any(len(field) > 10 for field in [quote, review, content])
+
+def _generate_preview(quote, content):
+    """生成文章预览"""
+    # 优先使用核心内容提取作为预览
+    preview_text = quote if quote else content
+    if preview_text:
+        return preview_text[:200] + ('...' if len(preview_text) > 200 else '')
+    return ''
 
 @app.route('/')
 def index():

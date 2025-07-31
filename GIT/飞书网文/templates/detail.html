@@ -73,6 +73,11 @@
         gap: 10px;
     }
 
+    .section-icon {
+        color: var(--accent-color);
+        margin-right: 8px;
+    }
+
     .quote-content {
         font-size: 1.3em;
         font-weight: bold;
@@ -114,6 +119,23 @@
     .review-title {
         font-size: 1.3em;
         color: var(--accent-secondary);
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .summary-section {
+        background: linear-gradient(135deg, rgba(138, 43, 226, 0.1) 0%, rgba(22, 33, 62, 0.8) 100%);
+        padding: 25px;
+        border-radius: 15px;
+        margin: 30px 0;
+        border-left: 5px solid #8a2be2;
+    }
+
+    .summary-title {
+        font-size: 1.3em;
+        color: #8a2be2;
         margin-bottom: 15px;
         display: flex;
         align-items: center;
@@ -324,12 +346,12 @@
     </div>
 </header>
 
-<!-- 精选金句 -->
+<!-- 核心内容提取 -->
 {% if article.quote %}
 <section class="article-quote-section slide-in">
     <h2 class="quote-title">
-        <i class="fas fa-quote-left"></i>
-        精选金句
+        <i class="fas fa-star section-icon"></i>
+        核心内容提取
     </h2>
     <div class="quote-content">
         {{ article.quote }}
@@ -337,12 +359,12 @@
 </section>
 {% endif %}
 
-<!-- 黄叔点评 -->
+<!-- 小白解读 -->
 {% if article.review %}
 <section class="article-review-section slide-in" style="animation-delay: 0.2s">
     <h2 class="review-title">
-        <i class="fas fa-comment-dots"></i>
-        黄叔点评
+        <i class="fas fa-lightbulb section-icon"></i>
+        小白解读
     </h2>
     <div class="review-content">
         {{ article.review }}
@@ -350,19 +372,38 @@
 </section>
 {% endif %}
 
-<!-- 文章内容 -->
+<!-- 内容总结 -->
 {% if article.content %}
+<section class="summary-section slide-in" style="animation-delay: 0.3s">
+    <h2 class="summary-title">
+        <i class="fas fa-clipboard-list section-icon"></i>
+        内容总结
+    </h2>
+    <div class="review-content">
+        {{ article.content }}
+    </div>
+</section>
+{% endif %}
+
+<!-- 完整内容 -->
+{% if article.full_content %}
 <section class="article-content-section slide-in" style="animation-delay: 0.4s">
     <h2 class="content-title">
-        <i class="fas fa-file-alt"></i>
-        文章正文
+        <i class="fas fa-file-alt section-icon"></i>
+        完整内容
     </h2>
     <div class="article-content">
-        {% if article.content_html %}
-            {{ article.content_html | safe }}
-        {% else %}
-            {{ article.content | replace('\n', '<br>') | safe }}
-        {% endif %}
+        {{ article.full_content }}
+    </div>
+</section>
+{% else %}
+<section class="article-content-section slide-in" style="animation-delay: 0.4s">
+    <h2 class="content-title">
+        <i class="fas fa-file-alt section-icon"></i>
+        完整内容
+    </h2>
+    <div class="article-content">
+        <p class="no-content">暂无完整内容</p>
     </div>
 </section>
 {% endif %}

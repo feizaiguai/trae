@@ -241,8 +241,8 @@
     {% if quotes %}
     <section class="featured-quotes fade-in">
         <h2 class="quotes-title">
-            <i class="fas fa-quote-left"></i>
-            精选金句
+            <i class="fas fa-star"></i>
+            精选内容
         </h2>
         {% for article in quotes[:3] %}
             {% if article.quote %}
@@ -275,14 +275,14 @@
             {% if article.quote %}
             <div class="article-quote">
                 <i class="fas fa-quote-left"></i>
-                {{ article.quote }}
+                <strong>核心内容：</strong>{{ article.quote }}
             </div>
             {% endif %}
             
             {% if article.review %}
             <div class="article-review">
-                <i class="fas fa-comment-dots"></i>
-                <strong>黄叔点评：</strong>{{ article.review }}
+                <i class="fas fa-lightbulb"></i>
+                <strong>小白解读：</strong>{{ article.review }}
             </div>
             {% endif %}
             
@@ -309,7 +309,8 @@
     <div class="empty-state">
         <i class="fas fa-inbox"></i>
         <h3>暂无文章</h3>
-        <p>请检查飞书多维表格配置，或稍后刷新页面</p>
+        <p>暂无数据，请检查飞书多维表格配置或稍后刷新页面</p>
+        <p><small>确保飞书表格包含：全文内容提取、小白解读、总结、链接等字段</small></p>
         <br>
         <a href="/api/refresh" class="btn" onclick="refreshCache(event)">
             <i class="fas fa-sync-alt"></i>
